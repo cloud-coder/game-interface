@@ -692,10 +692,18 @@ test.updateStats = function () {
     test.btnTestDefer.innerHTML = test.textTestDefer.replace('$1', miniPad + test.lastCountDefer) + '<span class="classic">' + test.helpTestDefer + '</span>';
   }
   if (test.testsLaunched && test.countPending < 1) {
-    if (test.countFail) test.headerDiv.style.background = '#F33'; // fail color color
-    if (!test.countFail) test.headerDiv.style.background = '#6C7'; // pass color
+    if (test.countFail)
+      test.headerDiv.style.background = '#F33'; // fail color color
+    else {
+      test.headerDiv.style.background = '#6C7'; // pass color
+      if (test.afterUnitTests && !test.afterUnitTestsRun) {
+        test.afterUnitTestsRun = true;
+        test.afterUnitTests();
+      }
+    }
   }
 };
+
 test.expressionInfo = function (expr) {
   if (typeof expr == 'string') {
     return '"' + expr.replace(/"/g, '\\\"') + '"';
