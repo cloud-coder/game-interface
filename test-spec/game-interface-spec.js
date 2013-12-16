@@ -11,6 +11,10 @@ test.heading('Classes', function () {
   test.runnerGameState();
   test.runnerViewPort();
   test.runnerGraphic();
+  test.runnerGraphicBitmap();
+  test.runnerGraphicText();
+  test.runnerBitmapResource();
+  test.runnerAudioResource();
 });
 test.heading('Models', function () {
   test.paragraph('These core models are included in the library.');
