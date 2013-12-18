@@ -5,6 +5,7 @@
   <title>gameInterface test spec</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="test-runner.css" type="text/css" media="all">
+  <script type="text/javascript" src="http://code.createjs.com/createjs-2013.09.25.min.js"></script> <!--todo: grab a local copy-->
   <script type="text/javascript" src="../test-spec/google-code-prettify/run_prettify.js"></script>
   <script type="text/javascript" src="../test-spec/Markdown.Converter.js"></script>
 
@@ -40,24 +41,115 @@
   <script type="text/javascript" src="../test-spec/after-unit-tests.js"></script>
 
   <script type="text/javascript" src="../test-spec/game-interface-spec.js"></script>
-</head>
-<body>
 
-<div style="background-color: bisque">
-  <br>
-  DOUG,
-  <br>
-  PUT HTML HERE FOR CANVAS AND SHIT TO USE IN TEST.
-  KEEP HTML SMALL AND PUT ALL IN CODE TO GENERATE THIS SHIT
-  YOU CAN DELETE THIS DIV JUST PUT THE SHIT HERE
-  <br>
-  Make sure unit tests run before your code
-  <br>
-  PEACE OUT
-  <br>
-  POPS
-  <br>
-</div>
+</head>
+<body onload="initializeCanvas()">
+
+<canvas id="stageCanvas" width=1024 height=768></canvas>
+
+<script>
+    function initializeCanvas() {
+        /*
+        var eventManager = document.getElementById('stageCanvas');
+
+        eventManager.addEventListener("someEvent", function(e) {
+            console.log(e);
+        });
+
+        var someEvent = new CustomEvent("someEvent", {
+           "bubbles":       { "default":true },
+           "cancelable":    { "default":true },
+           "detail":        { "thingA": true , "thingB": false }
+        });
+
+        eventManager.dispatchEvent(someEvent);
+        */ //EVENTS EXAMPLE
+
+
+        var stage = new createjs.Stage("stageCanvas");
+
+        var queue = new createjs.LoadQueue(false);
+        queue.installPlugin(createjs.Sound);
+        queue.addEventListener("complete", handleComplete);
+        queue.loadManifest([
+            //Images
+            {id: "toastImage",      src: "resources/images/toast.png"},
+            {id: "miniToastImage",  src: "resources/images/toast_mini.png"},
+
+            //Sounds
+            {id: "hiSound",         src: "resources/sounds/hi.mp3"}
+        ]);
+
+        function handleComplete() {
+            var thing = new createjs.Container({x:3, y:4, pickle: 69});
+
+            var mainViewPort = new ViewPort({
+                x:  0,
+                y:  0
+            });
+
+            var toastButton = new Graphic({
+                viewPort:   mainViewPort,
+                x:          100,
+                y:          100
+            });
+
+            var toastBR = new BitmapResource("toastImage");
+            var toastBitmap = new GraphicBitmap({
+                viewPort:       mainViewPort,
+                bitmapResource: toastBR,
+                x:          0,
+                y:          0
+            });
+
+            var toastText = new GraphicText({
+                viewPort:   mainViewPort,
+                text:       "TOAST",
+                x:          16,
+                y:          31
+            });
+
+            //Audio...
+
+            stage.addChild(mainViewPort.cjs);
+            stage.update();
+            //GAME-INTERFACE
+
+            /*
+            var mainViewPort = new createjs.Container();
+            mainViewPort.x = 0;
+            mainViewPort.y = 0;
+            stage.addChild(mainViewPort);
+
+            var toastButton = new createjs.Container();
+            toastButton.addEventListener("click", function(e) {
+                createjs.Sound.play("hiSound");
+            });
+            toastButton.x = 100;
+            toastButton.y = 100;
+            mainViewPort.addChild(toastButton);
+
+            var toastBitmap = new createjs.Bitmap(queue.getResult("miniToastImage"));
+            toastButton.addChild(toastBitmap);
+
+            var toastText = new createjs.Text(
+                "TOAST",
+                "bold 20px Arial",
+                "Black"
+            );
+            toastText.x = 16;
+            toastText.y = 31;
+            toastButton.addChild(toastText);
+
+            stage.update();
+            *///CREATEJS
+        }
+    }
+
+    function printStuff() {
+        console.log("stuff");
+    }
+</script>
 
 <script type="text/javascript">
   test.runner(true);
