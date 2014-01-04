@@ -49,19 +49,19 @@ test.afterUnitTests = function() {
             y:  0
         });
 
-        var toastBR = new BitmapResource("resources/images/toast_mini.png");
+        var toastBR = new BitmapResource("resources/images/toast_mini.png");    //100x84
         var toastBitmap = new GraphicBitmap({
             viewPort:       mainViewPort,
             bitmapResource: toastBR,
-            x:          0,
-            y:          0
+            x:          200,
+            y:          200
         });
 
         var toastText = new GraphicText({
             viewPort:   mainViewPort,
             text:       "TOAST",
-            x:          16,
-            y:          31
+            x:          200,
+            y:          200
         });
 
         var clickSound = new AudioResource("resources/sounds/hi.mp3");
@@ -79,29 +79,69 @@ test.afterUnitTests = function() {
         toastBitmap.cjs.addEventListener("click", function(e) {
             //createjs.Sound.play("hiSound");
             toastBitmap.setProperties({
-                x:Math.random()*400,
-                y:Math.random()*200
+                x:Math.random()*400 + 100,
+                y:Math.random()*200 + 100
             });
             toastText.setProperties({
                 text:   someListOfWords[ Math.floor((Math.random()*someListOfWords.length)) ]
             });
             toastText.setProperties({
-                x:      (toastBitmap.x + 50 - toastText.cjs.getMeasuredWidth()/2),
-                y:      (toastBitmap.y + 31)
+                x:      (toastBitmap.x),
+                y:      (toastBitmap.y)
             });
+            toastText.cjs.regX = toastText.cjs.getMeasuredWidth()/2;
+            toastText.cjs.regY = toastText.cjs.getMeasuredHeight()/2;
             I.drawCanvas();
 
             clickSound.play();
         });
 
-        I.drawCanvas();
-
-        //GAME-INTERFACE
+        //I.drawCanvas();
 
 
 
+        //Random tests
+        createjs.Ticker.addEventListener("tick", handleTick);
+        function handleTick() {
+            toastText.cjs.rotation = toastBitmap.cjs.rotation;
+            I.drawCanvas();
+        }
+        toastBitmap.cjs.regX = 50;
+        toastBitmap.cjs.regY = 42;
+        toastText.cjs.regX = toastText.cjs.getMeasuredWidth()/2;
+        toastText.cjs.regY = toastText.cjs.getMeasuredHeight()/2;
+        createjs.Tween.get(toastBitmap.cjs).to({rotation:10}, 450).call(goLeft);
 
+        function goRight() {
+            createjs.Tween.get(toastBitmap.cjs).to({rotation:10}, 900).call(goLeft);
+        }
 
+        function goLeft() {
+            createjs.Tween.get(toastBitmap.cjs).to({rotation:-10}, 900).call(goRight);
+        }
+
+        //toast rain
+
+        var toastParticles = [];
+        for(var limit = 0; limit < 500; limit++) {
+            toastParticles.push(
+                new GraphicBitmap({
+                    viewPort:       mainViewPort,
+                    bitmapResource: new BitmapResource("resources/images/toast_mini.png"),
+                    x:              0,
+                    y:              -100
+                })
+            );
+
+            toastParticles[limit].cjs.scaleX = 0.3;
+            toastParticles[limit].cjs.scaleY = 0.3;
+            toastParticles[limit].cjs.regX = 50;
+            toastParticles[limit].cjs.regY = 42;
+            toastParticles[limit].cjs.rotation = Math.random()*360;
+            toastParticles[limit].cjs.x = Math.random()* I.getViewportWidth();
+
+            createjs.Tween.get(toastParticles[limit].cjs, {loop:true}).wait(Math.random()*20000).to({y: I.getViewportHeight() + 100, rotation: Math.random()*360}, Math.random()*6000 + 7000);
+        }
         /*
          var mainViewPort = new createjs.Container();
          mainViewPort.x = 0;
