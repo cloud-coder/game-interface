@@ -5,8 +5,27 @@
 
 test.afterUnitTests = function() {
   // launch test
+    I.loadResources([
+        //Images
+        "resources/images/toast.png",
+        "resources/images/toast_mini.png",
+
+        //Sounds
+        "resources/sounds/hi.mp3"
+    ],
+        function(progress) {
+            if(progress >= 1) {
+                console.log("Load is complete");
+                main();
+            }
+            else {
+                console.log("Load is " + (progress*100).toFixed(2) + "% complete");
+            }
+        }
+    );
+
     function main() {
-        console.log("continue");
+        console.log("MAIN START");
         /*
          var eventManager = document.getElementById('stageCanvas');
 
@@ -21,23 +40,14 @@ test.afterUnitTests = function() {
          });
 
          eventManager.dispatchEvent(someEvent);
-         */ //EVENTS EXAMPLE
+         */ //CUSTOM EVENTS EXAMPLE
 
-
-        var stage = new createjs.Stage("stageCanvas");
+        I.defineStage("stageCanvas");
 
         var mainViewPort = new ViewPort({
             x:  0,
             y:  0
         });
-
-        /*
-        var toastButton = new Graphic({
-            viewPort:   mainViewPort,
-            x:          100,
-            y:          100
-        });
-        */ //Graphic
 
         var toastBR = new BitmapResource("resources/images/toast_mini.png");
         var toastBitmap = new GraphicBitmap({
@@ -54,11 +64,6 @@ test.afterUnitTests = function() {
             y:          31
         });
 
-        var toastButton = {
-            bitmap: toastBitmap,
-            text:   toastText
-        };
-
         var clickSound = new AudioResource("resources/sounds/hi.mp3");
 
 
@@ -70,7 +75,7 @@ test.afterUnitTests = function() {
         ];
 
 
-        //todo: click event associated with bitmap until Graphic and events setup
+        //todo: click event associated with bitmap until button class implemented
         toastBitmap.cjs.addEventListener("click", function(e) {
             //createjs.Sound.play("hiSound");
             toastBitmap.setProperties({
@@ -84,17 +89,12 @@ test.afterUnitTests = function() {
                 x:      (toastBitmap.x + 50 - toastText.cjs.getMeasuredWidth()/2),
                 y:      (toastBitmap.y + 31)
             });
-            stage.update();
+            I.drawCanvas();
 
             clickSound.play();
         });
 
-        stage.addChild(mainViewPort.cjs);
-        stage.update();
-
-
-
-
+        I.drawCanvas();
 
         //GAME-INTERFACE
 
@@ -137,13 +137,4 @@ test.afterUnitTests = function() {
             console.log("stuff");
         }
     }
-
-    I.loadResources(function(resourcesDefined, resourcesLoaded) {   //todo: loadResources needs to be able to be passed resources to be loaded
-        if(resourcesLoaded == resourcesDefined) {
-            main();
-        }
-        else {
-            //todo: loading bars and what not
-        }
-    });
 };
