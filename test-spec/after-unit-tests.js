@@ -4,7 +4,9 @@
  */
 
 test.afterUnitTests = function() {
+
   // launch test
+
     I.loadResources([
         //Images
         "resources/images/toast.png",
@@ -26,6 +28,7 @@ test.afterUnitTests = function() {
 
     function main() {
         console.log("MAIN START");
+
         /*
          var eventManager = document.getElementById('stageCanvas');
 
@@ -45,8 +48,8 @@ test.afterUnitTests = function() {
         I.defineStage("stageCanvas");
 
         var mainViewPort = new ViewPort({
-            x:  0,
-            y:  0
+            x:  100,
+            y:  116
         });
 
         var toastBR = new BitmapResource("resources/images/toast_mini.png");    //100x84
@@ -123,7 +126,7 @@ test.afterUnitTests = function() {
         //toast rain
 
         var toastParticles = [];
-        for(var limit = 0; limit < 500; limit++) {
+        for(var limit = 0; limit < 50; limit++) {
             toastParticles.push(
                 new GraphicBitmap({
                     viewPort:       mainViewPort,
