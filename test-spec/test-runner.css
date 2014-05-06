@@ -96,13 +96,13 @@ pre {
 }
 
 /*pre.fail {*/
-    /*background: #fcc;*/
+/*background: #fcc;*/
 /*}*/
 /*pre.pass {*/
-    /*background: #ccf;*/
+/*background: #ccf;*/
 /*}*/
 /*pre.skip {*/
-    /*background: #fcf;*/
+/*background: #fcf;*/
 /*}*/
 
 code {
@@ -246,3 +246,23 @@ button:active {
 .help { background: #9FDAEE; border: 1px solid #2BB0D7;	}
 .info { background: #9FDAEE; border: 1px solid #2BB0D7;	}
 .warning { background: #FFFFAA; border: 1px solid #FFAD33; }
+
+.canvasDiv {
+    padding: 10px;
+    margin: 10px;
+
+
+    /* basic */
+    background-color: #eee;
+
+
+
+    /* border-radius */
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+
+    /* box-shadow */
+    -webkit-box-shadow: rgba(0,0,0,0.8) 0px 0 10px;
+    -moz-box-shadow: rgba(0,0,0,0.8) 0 0 10px
+}

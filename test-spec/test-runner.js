@@ -312,7 +312,7 @@ test.renderDetail = function (isBrowser) {
                     'ASSERTION(s) failed'));
                 } else {
                   process.stdout.write(colors.red('✘') + '\n' + ref + colors.white(
-                    'RETURNED: ' + test.expressionInfo(test_Results) +
+                      'RETURNED: ' + test.expressionInfo(test_Results) +
                       '\n' + indent +
                       'EXPECTED: ' + test.expressionInfo(test.nodes[i].expectedValue) + '\n'));
                 }
@@ -616,7 +616,7 @@ test.asyncCallback = function (node, test_Results) {
             'ASSERTION(s) failed'));
         } else {
           process.stdout.write(colors.red('✘') + '\n' + ref + colors.white(
-            'RETURNED: ' + test.expressionInfo(test_Results) +
+              'RETURNED: ' + test.expressionInfo(test_Results) +
               '\n' + indent +
               'EXPECTED: ' + test.expressionInfo(test.nodes[i].expectedValue) + '\n'));
         }
