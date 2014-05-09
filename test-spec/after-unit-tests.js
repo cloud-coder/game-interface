@@ -4,38 +4,76 @@
  */
 
 test.afterUnitTests = function () {
-
   // Turn visual on / off
   var skipVisual = false;
   if (skipVisual) {
-    $('#stageCanvas').hide();
+    $('#visualTestDiv').hide();
     return;
   }
 
-  // Raw code for hello world
-  var stage = new createjs.Stage("stageCanvas");
-  var con = new createjs.Container();
-  var text = new createjs.Text('Hello World', "bold 20px Arial", "Black");
-  con.addChildAt(text);
-  stage.addChild(con);
-  stage.update();
+  // Hello world
+  var sup = 'This is a test of the GraphicText class.  The question is';
+  for (var i = 0; i < 99; i++) {
+    sup = sup + ' was it a cat I saw'
+  }
+  sup += '?';
+
+  I.initializeEnvironment({canvasID: "stageCanvas", callBack: function () {
+    test.viewPort = new ViewPort({});
+
+    var lineY = 0;
+
+    test.title = new GraphicText({
+      viewPort: test.viewPort,
+      text: 'GAME INTERFACE - GraphicText',
+      font: 'bold 18px Georgia, serif',
+      y: lineY
+    });
+
+    lineY += (10 + test.title.getMeasuredHeight());
+
+    test.text = new GraphicText({
+      viewPort: test.viewPort,
+      text: sup,
+      font: '16px arial,sans-serif',
+      lineWrap: true,
+      y: lineY
+    });
+
+    lineY += (10 + test.text.getMeasuredHeight());
+
+    test.text2 = new GraphicText({
+      viewPort: test.viewPort,
+      text: sup,
+      font: '16px arial,sans-serif',
+      lineWrap: true,
+      y: lineY
+    });
+
+    lineY += (10 + test.text.getMeasuredHeight());
+
+    test.text3 = new GraphicText({
+      viewPort: test.viewPort,
+      text: 'Click buttons below this frame to run other visual tests',
+      font: 'bold 16px arial,sans-serif',
+      lineWrap: true,
+      y: lineY
+    });
 
 
-//  // Create stage and viewport
-//  I.defineStage("stageCanvas");
-//  test.viewPort = new ViewPort({});
-//
-//  var loadingText = new GraphicText({
-//    viewPort: test.viewPort,
-//    text: "Loading, 0% ...",
-//    x: test.viewPort.width/2,
-//    y: test.viewPort.height/2
-//  });
-//
-//  I.drawCanvas();
-
+  }});
 };
 
-test.click = function(label) {
-  console.log(label);
+test.click = function (label) {
+  test.viewPort.setProperties({visible: false});
+  switch (label) {
+    case 'Text':
+      test.viewPort.setProperties({visible: true});
+      break;
+
+    case 'Loader':
+      break;
+    default:
+      console.log("I don't know how to '" + label + "'.");
+  }
 };

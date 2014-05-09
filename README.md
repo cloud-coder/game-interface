@@ -10,3 +10,8 @@ TODO
     - resources can be defined later and loadResources can be called again to load newly defined resources
     - May need to maintain internal data structures
 - tbd sprites and videos (for Sean to design spec)
+
+* patches r here
+
+- WEB FONTS!!!
+    - CreateJS Text supports web fonts (the same rules as Canvas). The font must be loaded and supported by the browser before it can be displayed.

@@ -511,7 +511,7 @@ test.show = function (value) {
       return;
     }
     if (value !== undefined) {
-      test.showWork.push(JSON.stringify(value,null,' '));
+      test.showWork.push(JSON.stringify(value, null, ' '));
       return;
     }
     test.showWork.push(value);
@@ -692,9 +692,10 @@ test.updateStats = function () {
     test.btnTestDefer.innerHTML = test.textTestDefer.replace('$1', miniPad + test.lastCountDefer) + '<span class="classic">' + test.helpTestDefer + '</span>';
   }
   if (test.testsLaunched && test.countPending < 1) {
-    if (test.countFail)
+    if (test.countFail) {
       test.headerDiv.style.background = '#F33'; // fail color color
-    else {
+      $('#visualTestDiv').hide();
+    } else {
       test.headerDiv.style.background = '#6C7'; // pass color
       if (test.afterUnitTests && !test.afterUnitTestsRun) {
         test.afterUnitTestsRun = true;
