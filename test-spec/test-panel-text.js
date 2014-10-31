@@ -7,7 +7,9 @@ test.panelText = function() {
 
   // Lazy create view
   if (!test.panelTextViewPort) {
+
     console.log('creating panelTextViewPort');
+
     test.panelTextViewPort = new ViewPort();
 
     // Hello world
@@ -16,7 +18,6 @@ test.panelText = function() {
       sup = sup + ' was it a cat I saw'
     }
     sup += '?';
-
 
     var lineY = 0;
 
@@ -50,28 +51,33 @@ test.panelText = function() {
     test.textR = new GraphicText({
       viewPort: test.panelTextViewPort,
       text: 'RED',
+      color: 'red',
       font: 'bold 16px arial,sans-serif',
       lineWrap: true,
       y: lineY
     });
+
     test.textR = new GraphicText({
       viewPort: test.panelTextViewPort,
       text: 'GREEN',
+      color: 'green',
       font: 'bold 16px arial,sans-serif',
       lineWrap: true,
       x: 100,
       y: lineY
     });
+
     test.textR = new GraphicText({
       viewPort: test.panelTextViewPort,
       text: 'BLUE',
+      color: 'blue',
       font: 'bold 16px arial,sans-serif',
       lineWrap: true,
       x: 200,
       y: lineY
     });
-    lineY += (10 + test.textR.getMeasuredHeight());
 
+    lineY += (22 + test.text.getMeasuredHeight());
     test.text3 = new GraphicText({
       viewPort: test.panelTextViewPort,
       text: 'Click buttons below this frame to run other visual tests',
@@ -79,19 +85,6 @@ test.panelText = function() {
       lineWrap: true,
       y: lineY
     });
-
-
-    lineY += (10 + test.text.getMeasuredHeight());
-    test.text3 = new GraphicText({
-      viewPort: test.panelTextViewPort,
-      text: 'Click buttons below this frame to run other visual tests',
-      font: 'bold 16px arial,sans-serif',
-      lineWrap: true,
-      y: lineY
-    });
-
-
-
 
   } else {
     test.panelTextViewPort.setProperties({visible:true});
